@@ -50,7 +50,7 @@ func (c *Chat) AddRawLine(line string) {
 	if len(timestamp) < 2 {
 		return
 	}
-	date := line[0:19]
+	date := line[0:20]
 	//time := timestamp[1]
 	data := strings.Split(firstPatition[1], ": ")
 	if len(data) < 2 {
@@ -142,6 +142,26 @@ func (c *Chat) GetTotalNumberTextsFromPeople() {
 	}
 }
 
-func (c *Chat) NumberOfTextsPerHour() {
+func (c *Chat) NumberOfTextsPerHour(normalized bool) [24]int {
+	var hours [24]int
+	for _, m := range c.messages {
+		hour, _ := m.GetHour()
+		hours[hour-1]++
+	}
 
+	if normalized {
+		// get max
+		max := -1
+		for i := 0; i < 24; i++ {
+			if max < hours[i] {
+				max = hours[i]
+			}
+		}
+
+		for i := 0; i < 24; i++ {
+			hours[i] = hours[i] * 100 / max
+		}
+	}
+
+	return hours
 }

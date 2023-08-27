@@ -32,6 +32,16 @@ func ElaborateChat(path string) types.Chat {
 	chat.GetTotalNumberTextsFromPeople()
 	fmt.Println(chat.MostUsedWords()[:10])
 
+	hours := chat.NumberOfTextsPerHour(true)
+
+	for j, h := range hours {
+		fmt.Print(j + 1)
+		for i := 0; i < h; i++ {
+			fmt.Print("|")
+		}
+		fmt.Print("\n")
+	}
+
 	return chat
 
 	//chat.Print()
