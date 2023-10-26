@@ -3,6 +3,7 @@ package types
 import (
 	"strconv"
 	"strings"
+	"whatsappminer/lib/hardcoded"
 )
 
 type Message struct {
@@ -30,4 +31,14 @@ func (m *Message) GetHour() (hour int, minute int) {
 	h := h_temp + pmamAdd(pmAndAm[1])
 	min, _ := strconv.Atoi(time[1])
 	return h, min
+}
+
+func (m *Message) GetEmojis() []string {
+	var emojis []string
+	for i := 0; i < len(m.message); i++ {
+		if hardcoded.IsItAnEmoji(string(m.message[i])) {
+			emojis = append(emojis, string(m.message[i]))
+		}
+	}
+	return emojis
 }

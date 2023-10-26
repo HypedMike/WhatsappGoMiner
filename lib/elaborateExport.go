@@ -8,29 +8,32 @@ import (
 )
 
 func ElaborateChat(path string) types.Chat {
+	// read file
 	readFile, err := os.Open(path)
-
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	fileScanner := bufio.NewScanner(readFile)
 	fileScanner.Split(bufio.ScanLines)
 	var fileLines []string
 
+	// get lines
 	for fileScanner.Scan() {
 		fileLines = append(fileLines, fileScanner.Text())
 	}
 
 	readFile.Close()
 
+	// init chat and add lines
 	chat := types.EmptyChat(path)
 	for _, v := range fileLines {
 		chat.AddRawLine(v)
 	}
 
-	fmt.Println(chat.GetTotalNumberTexts())
+	fmt.Printf("Total number of texts: %d\n", chat.GetTotalNumberTexts())
 	chat.GetTotalNumberTextsFromPeople()
-	fmt.Println(chat.MostUsedWords()[:10])
+	fmt.Print(chat.MostUsedWords()[:10])
 
 	hours := chat.NumberOfTextsPerHour(true)
 

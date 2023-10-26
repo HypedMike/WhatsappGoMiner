@@ -125,6 +125,15 @@ func (c *Chat) MostUsedWords() []Word {
 
 }
 
+func (c *Chat) MostUsedEmojis() []Word {
+	for _, m := range c.messages {
+		for _, e := range m.GetEmojis() {
+			fmt.Println(e)
+		}
+	}
+	return []Word{}
+}
+
 func sortWordsByCount(words []Word) []Word {
 	for i := 0; i < len(words); i++ {
 		for j := i + 1; j < len(words); j++ {
