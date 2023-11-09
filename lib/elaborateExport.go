@@ -45,6 +45,8 @@ func ElaborateChat(path string) types.Chat {
 		fmt.Print("\n")
 	}
 
+	chat.MessagesPerMonth()
+
 	return chat
 
 	//chat.Print()

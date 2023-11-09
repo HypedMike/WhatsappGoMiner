@@ -174,3 +174,33 @@ func (c *Chat) NumberOfTextsPerHour(normalized bool) [24]int {
 
 	return hours
 }
+
+func (c *Chat) MessagesPerMonth() {
+	var months [12]int
+	for _, m := range c.messages {
+		month := m.GetMonth()
+		months[month-1]++
+	}
+
+	// normalize number of messages
+	max := -1
+	for i := 0; i < 12; i++ {
+		if max < months[i] {
+			max = months[i]
+		}
+	}
+
+	for i := 0; i < 12; i++ {
+		months[i] = months[i] * 100 / max
+	}
+
+	var months_names = [12]string{"January", "February", "March", "April", "May", "June", "July", "August", "September", "Ocotber", "November", "December"}
+	for i := 0; i < 12; i++ {
+		var bars string
+		for j := 0; j < months[i]; j++ {
+			bars += "|"
+		}
+		fmt.Printf("%15s: %s\n", months_names[i], bars)
+	}
+
+}

@@ -42,3 +42,14 @@ func (m *Message) GetEmojis() []string {
 	}
 	return emojis
 }
+
+func (m *Message) GetAuthor() Person {
+	return m.author
+}
+
+func (m *Message) GetMonth() int {
+	partitions := strings.Split(m.time, ", ")
+	date := strings.Split(partitions[0], "/")
+	month, _ := strconv.Atoi(date[1])
+	return month
+}
