@@ -8,6 +8,7 @@ Road map
 - ✅ number of messages per person
 - ✅ top 10 most used words
 - ✅ number of texts per hour
+- ✅ number of texts per month
 - ⬜ average mood per person
  
 
